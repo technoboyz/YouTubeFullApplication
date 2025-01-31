@@ -11,14 +11,7 @@ namespace YouTubeFullApplication.Client
         private const string refreshTokenName = "refreshToken";
         private readonly AuthenticationState _anonymous = new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
         private readonly ILocalStorageService localStorageService;
-        // private readonly HttpClient client;
         private readonly JsonWebTokenHandler jsonWebTokenHandler = new();
-
-        //public CustomAuthenticationStateProvider(ILocalStorageService localStorageService, HttpClient client)
-        //{
-        //    this.localStorageService = localStorageService;
-        //    this.client = client;
-        //}
 
         public CustomAuthenticationStateProvider(ILocalStorageService localStorageService)
         {
@@ -32,9 +25,6 @@ namespace YouTubeFullApplication.Client
 
             // se il token non è presente restituiamo un user non autenticato
             if (string.IsNullOrEmpty(savedToken)) return _anonymous;
-
-            // associamo il token al client htty
-            //client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("bearer", savedToken);
 
             // recuperiamo i dati dal token salvato.
             JsonWebToken jwtSecurityToken = jsonWebTokenHandler.ReadJsonWebToken(savedToken);
@@ -56,7 +46,6 @@ namespace YouTubeFullApplication.Client
         {
             await localStorageService.SetItemAsync(tokenName, token);
             await localStorageService.SetItemAsync(refreshTokenName, refreshToken);
-            //client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("bearer", token);
             JsonWebToken jwtSecurityToken = jsonWebTokenHandler.ReadJsonWebToken(token);
             IEnumerable<Claim> claims = jwtSecurityToken.Claims.ToList();
             var user = new ClaimsPrincipal(new ClaimsIdentity(claims, "jwt"));
