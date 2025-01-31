@@ -1,0 +1,53 @@
+﻿@page "/Abbinamenti/Nuovo"
+@inherits PageBase
+<PageTitle>Nuova Frequenza</PageTitle>
+<BodyTitle Title="Nuova Frequenza" />
+<ErrorMessage Message="@errorMessage" />
+@if (isLoading)
+{
+    <BsSpinner />
+}
+else
+{
+    <EditForm EditContext="@editContext" OnValidSubmit="@OnSubmitAsync">
+        <FluentValidationValidator />
+        <ValidationSummary />
+
+        <FormRow Label="Docente">
+            <InputSelect class="form-select" @bind-Value="formModel.Docente_Id">
+                <option value="">[Seleziona Docente]</option>
+                @foreach(var i in docenti)
+                {
+                    <option value="@i.Id">@i.Cognome @i.Nome [@i.CodiceFiscale]</option>
+                }
+            </InputSelect>
+        </FormRow>
+
+        <FormRow Label="Classe">
+            <InputSelect class="form-select" @bind-Value="formModel.Classe_Id">
+                <option value="">[Seleziona Classe]</option>
+                @foreach (var c in classi)
+                {
+                    <option value="@c.Id">@c.Nome</option>
+                }
+            </InputSelect>
+        </FormRow>
+
+        <FormRow Label="Materia">
+            <InputSelect class="form-select" @bind-Value="formModel.Materia_Id">
+                <option value="">[Seleziona Materia]</option>
+                @foreach (var i in materie)
+                {
+                    <option value="@i.Id">@i.Nome</option>
+                }
+            </InputSelect>
+        </FormRow>
+
+        <div class="row">
+            <div class="col">
+                <a href="/Frequenze" class="btn btn-secondary me-2">Annulla</a>
+                <FormSubmit IsBusy="@isBusy" />
+            </div>
+        </div>
+    </EditForm>
+}

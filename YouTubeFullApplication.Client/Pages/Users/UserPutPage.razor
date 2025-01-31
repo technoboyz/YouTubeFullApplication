@@ -1,0 +1,39 @@
+﻿@page "/Users/{id:guid}"
+@inherits PageBase
+<PageTitle>Modifica User</PageTitle>
+<BodyTitle Title="Modifica User" />
+<ErrorMessage Message="@errorMessage" />
+@if (isLoading)
+{
+    <BsSpinner />
+}
+else
+{
+    @if (formModel != null)
+    {
+        <EditForm EditContext="@editContext" OnValidSubmit="@OnSubmitAsync">
+            <FluentValidationValidator />
+            <ValidationSummary />
+
+            <FormRow Label="Nome">
+                <InputText class="form-control" @bind-Value="formModel.Nome" />
+            </FormRow>
+
+            <FormRow Label="Cognome">
+                <InputText class="form-control" @bind-Value="formModel.Cognome" />
+            </FormRow>
+
+            <FormRow Label="Role">
+                <InputSelect class="form-select" @bind-Value="formModel.Role">
+                    <option value="">[Seleziona]</option>
+                    @foreach (var role in roles)
+                    {
+                        <option value="@role">@role</option>
+                    }
+                </InputSelect>
+            </FormRow>
+
+            <FormSubmit IsBusy="@isBusy" />
+        </EditForm>
+    }
+}

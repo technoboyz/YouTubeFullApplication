@@ -1,0 +1,35 @@
+﻿@page "/Frequenze/{id:guid}/Details"
+@inherits PageBase
+<PageTitle>Dettaglio Frequenza</PageTitle>
+<BodyTitle Title="Dettaglio Frequenza" />
+<ErrorMessage Message="@errorMessage" />
+@if (isLoading)
+{
+    <BsSpinner />
+}
+else
+{
+    @if (model != null)
+    {
+        <div class="row mb-2">
+            <div class="col">
+                <a href="/Frequenze/@model.Id" class="btn btn-primary">Modifica</a>
+            </div>
+        </div>
+        <FormRow Label="Studente">
+            <span class="form-text">@model.Studente.Cognome @model.Studente.Nome<br/>[@model.Studente.CodiceFiscale]</span>
+        </FormRow>
+
+        <FormRow Label="Anno Scolastico">
+            <span class="form-text">@model.AnnoScolastico</span>
+        </FormRow>
+
+        <FormRow Label="Classe">
+            <span class="form-text">@model.Classe.Nome</span>
+        </FormRow>
+
+        <FormRow Label="Esito">
+            <span class="form-text">@model.Esito</span>
+        </FormRow>
+    }
+}

@@ -1,0 +1,50 @@
+﻿@page "/Materie"
+@inherits PageBase
+<PageTitle>Materie</PageTitle>
+<BodyTitle Title="Materie" />
+<ErrorMessage Message="@errorMessage" />
+@if (isLoading)
+{
+    <BsSpinner />
+}
+else
+{
+    @if (content != null)
+    {
+        <Pagination Result="@content" OnPageRequest="@PageRequestAsync" />
+        <table class="table table-bordered w-100">
+            <thead>
+                <tr>
+                    <th style="width:0px;">
+                        <a href="/Materie/Nuova" class="btn btn-sm btn-primary"><i class="fa-solid fa-fw fa-plus"></i></a>
+                    </th>
+                    <th>Nome</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (content!.Items.Any())
+                {
+                    @foreach (var item in content!.Items)
+                    {
+                        <tr>
+                            <td class="text-nowrap">
+                                <a href="/Materie/@item.Id/Details" class="btn btn-sm btn-secondary"><i class="fa-solid fa-fw fa-magnifying-glass"></i></a>
+                                <a href="/Materie/@item.Id" class="btn btn-sm btn-secondary"><i class="fa-solid fa-fw fa-pen"></i></a>
+                                <button type="button" class="btn btn-sm btn-warning" @onclick="() => DeleteAsync(item)">
+                                    <i class="fa-solid fa-fw fa-trash-can"></i>
+                                </button>
+                            </td>
+                            <td>@item.Nome</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="2">Nessuna classe presente</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+}

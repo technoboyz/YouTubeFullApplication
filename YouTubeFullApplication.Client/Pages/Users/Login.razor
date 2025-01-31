@@ -1,0 +1,65 @@
+﻿@attribute [AllowAnonymous]
+@page "/Login"
+@layout LoginLayout
+@inherits PageBase
+@inject UsersService service
+@inject NavigationManager nav
+@inject AuthenticationStateProvider auth
+<div class="container">
+    <h3>Login</h3>
+    <EditForm EditContext="@editContext" OnValidSubmit="@OnSubmitAsync">
+        <FluentValidationValidator />
+        <ValidationSummary />
+
+        <FormRow Label="Email">
+            <InputText class="form-control" @bind-Value="request.Email" />
+        </FormRow>
+
+        <FormRow Label="Password">
+            <InputText type="password" class="form-control" @bind-Value="request.Password" />
+        </FormRow>
+
+        <div class="row">
+            <div class="col">
+                <button type="submit" disabled hidden />
+                <button type="submit" class="btn btn-lg btn-primary me-2" disabled="@isBusy">Accedi</button>
+                @if(isBusy)
+                {
+                    <BsSpinner />
+                }
+            </div>
+        </div>
+    </EditForm>
+</div>
+
+@code {
+    [Parameter, SupplyParameterFromQuery]
+    public string? ReturnUrl { get; set; }
+    private UserLoginRequest request = new();
+    private EditContext? editContext;
+    private ValidationMessageStore? validationMessageStore;
+
+    protected override void OnInitialized()
+    {
+        editContext = new(request);
+        validationMessageStore = new(editContext);
+        base.OnInitialized();
+    }
+
+    private async Task OnSubmitAsync()
+    {
+        errorMessage = null;
+        isBusy = true;
+        var result = await service.LoginAsync(request, Token);
+        if (result.Success)
+        {
+            await (auth as CustomAuthenticationStateProvider)!.SignInAsync(result.Content!.Token, result.Content.RefreshToken);
+            nav.NavigateTo(ReturnUrl ?? "/");
+        }
+        else
+        {
+            errorMessage = result.ErrorMessage;
+        }
+        isBusy = false;
+    }
+}

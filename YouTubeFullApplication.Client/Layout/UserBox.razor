@@ -1,0 +1,24 @@
+﻿<AuthorizeView>
+    <Authorized>
+        <div class="w-100">
+            <div class="text-nowrap text-center">
+                @context.User.GetCognome() @context.User.GetNome()
+            </div>
+            <div class="text-center">
+                <small>[@context.User.GetRolee()]</small>
+            </div>
+            <div class="text-center">
+                <button type="button" class="btn btn-sm btn-secondary" @onclick="LogoutAsync">Esci</button>
+            </div>
+        </div>
+    </Authorized>
+</AuthorizeView>
+
+@code {
+    [Inject] AuthenticationStateProvider authenticationStateProvider { get; set; } = default!;
+
+    private async Task LogoutAsync()
+    {
+        await (authenticationStateProvider as CustomAuthenticationStateProvider)!.SingOutAsync();
+    }
+}

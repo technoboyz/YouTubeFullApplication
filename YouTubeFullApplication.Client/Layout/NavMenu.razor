@@ -1,0 +1,35 @@
+﻿<div id="sidemenu" class="bg-light" style="height: 100%">
+    <div class="bg-black">
+        <h4 class="text-white text-center py-3">GESTIONALE</h4>
+    </div>
+    <UserBox />
+    <hr />
+    <NavLink class="nav-link p-3" href="" Match="NavLinkMatch.All">
+        <i class="fa-solid fa-fw fa-house me-2"></i>Home Page
+    </NavLink>
+    <NavLink class="nav-link p-3" href="Studenti" Match="NavLinkMatch.All">
+        <i class="fa-solid fa-fw fa-user me-2"></i>Studenti
+    </NavLink>
+    <NavLink class="nav-link p-3" href="Docenti" Match="NavLinkMatch.All">
+        <i class="fa-solid fa-fw fa-user-graduate me-2"></i>Docenti
+    </NavLink>
+    <NavLink class="nav-link p-3" href="Classi" Match="NavLinkMatch.All">
+        <i class="fa-solid fa-fw fa-people-line me-2"></i>Classi
+    </NavLink>
+    <NavLink class="nav-link p-3" href="Materie" Match="NavLinkMatch.All">
+        <i class="fa-solid fa-fw fa-chalkboard me-2"></i>Materie
+    </NavLink>
+    <NavLink class="nav-link p-3" href="Abbinamenti" Match="NavLinkMatch.All">
+        <i class="fa-solid fa-fw fa-diagram-project me-2"></i>Abbinamenti
+    </NavLink>
+    <NavLink class="nav-link p-3" href="Frequenze" Match="NavLinkMatch.All">
+        <i class="fa-solid fa-fw fa-chart-line me-2"></i>Frequenze
+    </NavLink>
+    <AuthorizeView Roles="Admin">
+        <Authorized>
+            <NavLink class="nav-link p-3" href="Users" Match="NavLinkMatch.All">
+                <i class="fa-solid fa-fw fa-user-tag me-2"></i>Users
+            </NavLink>
+        </Authorized>
+    </AuthorizeView>
+</div>

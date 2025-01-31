@@ -1,0 +1,30 @@
+﻿@page "/Materie/{id:guid}"
+@inherits PageBase
+<PageTitle>Modifica Materia</PageTitle>
+<BodyTitle Title="Modifica Classe" />
+<ErrorMessage Message="@errorMessage" />
+@if(isLoading)
+{
+    <BsSpinner />
+}
+else
+{
+    @if(formModel != null)
+    {
+        <EditForm EditContext="@editContext" OnValidSubmit="@OnSubmitAsync">
+            <FluentValidationValidator />
+            <ValidationSummary />
+
+            <FormRow Label="Nome">
+                <InputText class="form-control" @bind-Value="formModel.Nome" />
+            </FormRow>
+
+            <div class="row">
+                <div class="col">
+                    <a href="/Materie" class="btn btn-secondary me-2">Annulla</a>
+                    <FormSubmit IsBusy="@isBusy" />
+                </div>
+            </div>
+        </EditForm>
+    }
+}

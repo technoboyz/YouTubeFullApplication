@@ -1,0 +1,17 @@
+﻿@if (!string.IsNullOrEmpty(Message))
+{
+    <div class="bg-light p-2 border-start border-danger border-2 d-flex align-items-center mb-3">
+        <div class="flex-fill">@((MarkupString)Message)</div>
+        <button type="button" class="btn btn-sm" @onclick="Clear"><i class="fa-solid fa-fw fa-xmark"></i></button>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public string? Message { get; set; }
+
+    private void Clear()
+    {
+        Message = null;
+    }
+}

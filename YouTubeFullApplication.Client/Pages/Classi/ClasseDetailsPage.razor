@@ -1,0 +1,23 @@
+﻿@page "/Classi/{id:guid}/Details"
+@inherits PageBase
+<PageTitle>Dettaglio Classe</PageTitle>
+<BodyTitle Title="Dettaglio Classe" />
+<ErrorMessage Message="@errorMessage" />
+@if (isLoading)
+{
+    <BsSpinner />
+}
+else
+{
+    @if (model != null)
+    {
+        <div class="row mb-2">
+            <div class="col">
+                <a href="/Classi/@model.Id" class="btn btn-primary">Modifica</a>
+            </div>
+        </div>
+        <FormRow Label="Nome">
+            <span class="form-text">@model.Nome</span>
+        </FormRow>
+    }
+}

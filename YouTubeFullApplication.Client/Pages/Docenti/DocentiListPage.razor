@@ -1,0 +1,83 @@
+﻿@page "/Docenti"
+@inherits PageBase
+<PageTitle>Docenti</PageTitle>
+<BodyTitle Title="Docenti" />
+<ErrorMessage Message="@errorMessage" />
+@if (isLoading)
+{
+    <BsSpinner />
+}
+else
+{
+    @if (content != null)
+    {
+        <Pagination Result="@content" OnPageRequest="@PageRequestAsync" />
+        <EditForm Model="@request">
+            <ListSwitch IsBusy="@isBusy" Value="@request.RetriveDeleted" OnValueChanged="@ListSwitchAsync" />
+            <table class="table table-bordered w-100">
+                <thead>
+                    <tr>
+                        <th style="width:0px;">
+                            <a href="/Docenti/Nuovo" class="btn btn-sm btn-primary"><i class="fa-solid fa-fw fa-plus"></i></a>
+                        </th>
+                        <th>Cognome / Nome</th>
+                        <th>Codice Fiscale</th>
+                        <th>Data Nascita</th>
+                        <th>Abbinamenti</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button type="button" class="btn btn-sm btn-primary" disabled="@isBusy" @onclick="@DataRequestAsync">
+                                <i class="fa-solid fa-fw fa-magnifying-glass"></i>
+                            </button>
+                        </td>
+                        <td>
+                            <InputText class="form-control form-control-sm" @bind-Value="request.CognomeNome" />
+                        </td>
+                        <td>
+                            <InputText class="form-control form-control-sm" @bind-Value="request.CodiceFiscale" />
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (content!.Items.Any())
+                    {
+                        @foreach (var item in content!.Items)
+                        {
+                            <tr>
+                                <td class="text-nowrap">
+                                    <a href="/Studenti/@item.Id/Details" class="btn btn-sm btn-secondary"><i class="fa-solid fa-fw fa-magnifying-glass"></i></a>
+                                    <a href="/Studenti/@item.Id" class="btn btn-sm btn-secondary"><i class="fa-solid fa-fw fa-pen"></i></a>
+                                    @if (request.RetriveDeleted)
+                                    {
+                                        <button type="button" class="btn btn-sm btn-warning" @onclick="() => UndeleteAsync(item.Id)">
+                                            <i class="fa-solid fa-fw fa-arrows-rotate"></i>
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <button type="button" class="btn btn-sm btn-warning" @onclick="() => DeleteAsync(item)">
+                                            <i class="fa-solid fa-fw fa-trash-can"></i>
+                                        </button>
+                                    }
+                                </td>
+                                <td>@item.CognomeNome</td>
+                                <td>@item.CodiceFiscale</td>
+                                <td>@item.DataNascita.ToString()</td>
+                                <td>@item.AbbinamentiCount</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5">Nessun docene presente</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </EditForm>
+    }
+}

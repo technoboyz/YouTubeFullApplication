@@ -1,0 +1,72 @@
+﻿@page "/Frequenze"
+@inherits PageBase
+<PageTitle>Frequenze</PageTitle>
+<BodyTitle Title="Frequenze" />
+<ErrorMessage Message="@errorMessage" />
+@if (isLoading)
+{
+    <BsSpinner />
+}
+else
+{
+    @if (content != null)
+    {
+        <Pagination Result="@content" OnPageRequest="@PageRequestAsync" />
+        <EditForm Model="@request">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th style="width:0px;">
+                            <a href="/Frequenze/Nuova" class="btn btn-sm btn-primary"><i class="fa-solid fa-fw fa-plus"></i></a>
+                        </th>
+                        <th>Studente</th>
+                        <th>Anno</th>
+                        <th>Classe</th>
+                        <th>Esito</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button type="button" class="btn btn-sm btn-primary" disabled="@isBusy" @onclick="@DataRequestAsync">
+                                <i class="fa-solid fa-fw fa-magnifying-glass"></i>
+                            </button>
+                        </td>
+                        <td>
+                            <InputText class="form-control form-control-sm" @bind-Value="request.Studente" />
+                        </td>
+                        <td></td>
+                        <td>
+                            <InputText class="form-control form-control-sm" @bind-Value="request.Classe" />
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (content!.Items.Any())
+                    {
+                        @foreach (var item in content!.Items)
+                        {
+                            <tr>
+                                <td class="text-nowrap">
+                                    <a href="/Frequenze/@item.Id/Details" class="btn btn-sm btn-secondary"><i class="fa-solid fa-fw fa-magnifying-glass"></i></a>
+                                    <a href="/Frequenze/@item.Id" class="btn btn-sm btn-secondary"><i class="fa-solid fa-fw fa-pen"></i></a>
+                                    <button type="button" class="btn btn-sm btn-warning" @onclick="() => DeleteAsync(item)">
+                                        <i class="fa-solid fa-fw fa-trash-can"></i>
+                                    </button>
+                                </td>
+                                <td><a href="/Studeni/@item.Studente_Id/Details">@item.Studente_CognomeNome</a></td>
+                                <td>@item.AnnoScolastico</td>
+                                <td><a href="/Classi/@item.Classe_Id/Details">@item.Classe_Nome</a></td>
+                                <td>@item.Esito</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5">Nessuna frequenza presente</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </EditForm>
+    }
+}

@@ -1,0 +1,29 @@
+@using System.Text.Json
+@using YouTubeFullApplication.Json.Converters
+<div class="d-block bg-light border-start border-success border-2 my-2">
+    <div class="bg-dark text-white"><h6 class="px-2 py-1">@Data.GetType().Name</h6></div>
+    <pre class="px-2">
+        @((MarkupString)GetJson());
+    </pre>
+</div>
+
+@code {
+    [Parameter, EditorRequired]
+    public object Data { get; set; } = default!;
+
+    private string GetJson()
+    {
+        var woptions = new JsonWriterOptions { Indented = true };
+        var options = new JsonSerializerOptions()
+            {
+                DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault,
+                WriteIndented = true
+            };
+        options.Converters.Add(new UtcDateTimeJsonConverter());
+        using MemoryStream ms = new();
+        using var writer = new Utf8JsonWriter(ms, woptions);
+        JsonSerializer.Serialize(writer, Data, options);
+        string text = System.Text.Encoding.ASCII.GetString(ms.ToArray());
+        return text.Trim();
+    }
+}

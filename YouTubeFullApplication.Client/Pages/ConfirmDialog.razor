@@ -1,0 +1,27 @@
+﻿@using Blazored.Modal
+<div class="text-center pb-4">
+    <i class="fa-solid fa-2xl fa-triangle-exclamation"></i>
+</div>
+<p class="bg-light p-4 border-top border-down m-0">@Message</p>
+<div class="text-end p-3">
+    <button type="button" class="btn btn-outline-secondary me-2" @onclick="Cancel">Annulla</button>
+    <button type="button" class="btn btn-success" @onclick="Procedi">Procedi</button>
+</div>
+
+@code {
+    [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; } = default!;
+    [Parameter]
+    public string? Message { get; set; }
+
+    private async Task Cancel()
+    {
+        await BlazoredModal.CancelAsync();
+    }
+
+    private async Task Procedi()
+    {
+        await BlazoredModal.CloseAsync();
+    }
+
+    public static readonly string ParamName = nameof(ConfirmDialog.Message);
+}

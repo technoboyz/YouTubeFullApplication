@@ -1,0 +1,70 @@
+﻿@page "/Abbinamenti"
+@inherits PageBase
+<PageTitle>Frequenze</PageTitle>
+<BodyTitle Title="Frequenze" />
+<ErrorMessage Message="@errorMessage" />
+@if (isLoading)
+{
+    <BsSpinner />
+}
+else
+{
+    @if (content != null)
+    {
+        <Pagination Result="@content" OnPageRequest="@PageRequestAsync" />
+        <EditForm Model="@request">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th style="width:0px;">
+                            <a href="/Abbinamenti/Nuovo" class="btn btn-sm btn-primary"><i class="fa-solid fa-fw fa-plus"></i></a>
+                        </th>
+                        <th>Docente</th>
+                        <th>Classe</th>
+                        <th>Materia</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button type="button" class="btn btn-sm btn-primary" disabled="@isBusy" @onclick="@DataRequestAsync">
+                                <i class="fa-solid fa-fw fa-magnifying-glass"></i>
+                            </button>
+                        </td>
+                        <td>
+                            <InputText class="form-control form-control-sm" @bind-Value="request.Docente" />
+                        </td>
+                        <td></td>
+                        <td>
+                            <InputText class="form-control form-control-sm" @bind-Value="request.Classe" />
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (content!.Items.Any())
+                    {
+                        @foreach (var item in content!.Items)
+                        {
+                            <tr>
+                                <td class="text-nowrap">
+                                    <a href="/Abbinamenti/@item.Id/Details" class="btn btn-sm btn-secondary"><i class="fa-solid fa-fw fa-magnifying-glass"></i></a>
+                                    <a href="/Abbinamenti/@item.Id" class="btn btn-sm btn-secondary"><i class="fa-solid fa-fw fa-pen"></i></a>
+                                    <button type="button" class="btn btn-sm btn-warning" @onclick="() => DeleteAsync(item)">
+                                        <i class="fa-solid fa-fw fa-trash-can"></i>
+                                    </button>
+                                </td>
+                                <td><a href="/Docenti/@item.Docente_Id/Details">@item.Docente</a></td>
+                                <td><a href="/Classi/@item.Classe_Id/Details">@item.Classe</a></td>
+                                <td><a href="/Materie/@item.Materia_Id/Details">@item.Materia</a></td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5">Nessuna frequenza presente</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </EditForm>
+    }
+}

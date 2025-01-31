@@ -1,0 +1,32 @@
+﻿@page "/Docenti/Nuovo"
+@inherits PageBase
+<PageTitle>Nuovo Studente</PageTitle>
+<BodyTitle Title="Nuovo Studente" />
+<ErrorMessage Message="@errorMessage" />
+<EditForm EditContext="@editContext" OnValidSubmit="@OnSubmitAsync">
+    <FluentValidationValidator />
+    <ValidationSummary />
+
+    <FormRow Label="Nome">
+        <InputText class="form-control" @bind-Value="formModel.Nome" />
+    </FormRow>
+
+    <FormRow Label="Cognome">
+        <InputText class="form-control" @bind-Value="formModel.Cognome" />
+    </FormRow>
+
+    <FormRow Label="Codice Fiscale">
+        <InputText class="form-control" @bind-Value="formModel.CodiceFiscale" />
+    </FormRow>
+
+    <FormRow Label="Data Nascita">
+        <InputDate class="form-control" @bind-Value="formModel.DataNascita" />
+    </FormRow>
+
+    <div class="row">
+        <div class="col">
+            <a href="/Docenti" class="btn btn-secondary me-2">Annulla</a>
+            <FormSubmit IsBusy="@isBusy" />
+        </div>
+    </div>
+</EditForm>

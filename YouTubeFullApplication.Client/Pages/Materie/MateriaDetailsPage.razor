@@ -1,0 +1,23 @@
+﻿@page "/Materie/{id:guid}/Details"
+@inherits PageBase
+<PageTitle>Dettaglio Materia</PageTitle>
+<BodyTitle Title="Dettaglio Materia" />
+<ErrorMessage Message="@errorMessage" />
+@if (isLoading)
+{
+    <BsSpinner />
+}
+else
+{
+    @if (model != null)
+    {
+        <div class="row mb-2">
+            <div class="col">
+                <a href="/Materie/@model.Id" class="btn btn-primary">Modifica</a>
+            </div>
+        </div>
+        <FormRow Label="Nome">
+            <span class="form-text">@model.Nome</span>
+        </FormRow>
+    }
+}

@@ -1,0 +1,62 @@
+﻿@page "/Studenti/Nuovo"
+@inherits StudentePostPageBase
+<PageTitle>Nuovo Studente</PageTitle>
+<BodyTitle Title="Nuovo Studente" />
+<ErrorMessage Message="@errorMessage" />
+<EditForm EditContext="@editContext" OnValidSubmit="@OnSubmitAsync">
+    <FluentValidationValidator />
+    <ValidationSummary />
+
+    @* <div class="row">
+        <label class="form-label col-md-3 mb-2">Nome</label>
+        <div class="col-md-9 mb-2">
+            <InputText class="form-control" @bind-Value="formModel.Nome" />
+        </div>
+    </div>
+
+    <div class="row">
+        <label class="form-label col-md-3 mb-2">Cognome</label>
+        <div class="col-md-9 mb-2">
+            <InputText class="form-control" @bind-Value="formModel.Cognome" />
+        </div>
+    </div>
+
+    <div class="row">
+        <label class="form-label col-md-3 mb-2">Codice Fiscale</label>
+        <div class="col-md-9 mb-2">
+            <InputText class="form-control" @bind-Value="formModel.CodiceFiscale" />
+        </div>
+    </div>
+
+    <div class="row">
+        <label class="form-label col-md-3 mb-2">Data Nascita</label>
+        <div class="col-md-9 mb-2">
+            <InputDate class="form-control" @bind-Value="formModel.DataNascita" />
+        </div>
+    </div> *@
+
+    <FormRow Label="Nome">
+        <InputText class="form-control" @bind-Value="formModel.Nome" />
+    </FormRow>
+
+    <FormRow Label="Cognome">
+        <InputText class="form-control" @bind-Value="formModel.Cognome" />
+    </FormRow>
+
+    <FormRow Label="Codice Fiscale">
+        <InputText class="form-control" @bind-Value="formModel.CodiceFiscale" />
+    </FormRow>
+
+    <FormRow Label="Data Nascita">
+        <InputDate class="form-control" @bind-Value="formModel.DataNascita" />
+    </FormRow>
+
+    <div class="row">
+        <div class="col">
+            <a href="/Studenti" class="btn btn-secondary me-2">Annulla</a>
+            <FormSubmit IsBusy="@isBusy" />
+        </div>
+    </div>
+
+</EditForm>
+

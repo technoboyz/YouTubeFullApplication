@@ -1,0 +1,12 @@
+﻿<button type="submit" hidden disabled />
+<button type="submit" class="btn btn-primary" disabled="@IsBusy"><i class="fa-solid fa-fw fa-floppy-disk me-2"></i> @GetLabel()</button>
+
+@code {
+    [Parameter] public bool IsBusy { get; set; }
+    [Parameter] public string? Label { get; set; }
+
+    private string GetLabel()
+    {
+        return string.IsNullOrWhiteSpace(Label) ? "Salva" : Label.Trim();
+    }
+}

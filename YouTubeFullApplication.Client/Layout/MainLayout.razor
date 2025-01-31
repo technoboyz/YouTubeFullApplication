@@ -1,0 +1,16 @@
+﻿@inherits LayoutComponentBase
+<AuthorizeView>
+    <Authorized>
+        <div class="d-flex flex-row" style="height: 100%">
+            <NavMenu />
+            <div class="p-2 flex-fill">
+                <div class="container-fluid">
+                    @Body
+                </div>
+            </div>
+        </div>
+    </Authorized>
+    <NotAuthorized>
+        @Body
+    </NotAuthorized>
+</AuthorizeView>

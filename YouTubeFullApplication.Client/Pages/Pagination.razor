@@ -1,0 +1,63 @@
+﻿<div class="row">
+    <div class="col-md-6 py-2">
+        @($"Pagina: {Result.Page} di {Result.PageCount}")
+    </div>
+    <div class="col-md-6 py-2 text-end">
+        @($"Elementi totali: {Result.TotalCount}")
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-2 mb-2">
+        <label class="col-form-label">Pagina</label>
+    </div>
+    <div class="col-md-2 mb-2">
+        <InputSelect class="form-select" TValue="int" Value="@formModel.Page" ValueExpression="@(() => formModel.Page)" ValueChanged="@PageValueChangedAsync">
+            @foreach (var p in Enumerable.Range(1, Result.PageCount))
+            {
+                <option value="@p">@p</option>
+            }
+        </InputSelect>
+    </div>
+    <div class="col-md-2 mb-2">
+        <label class="col-form-label">Elementi per Pagina</label>
+    </div>
+    <div class="col-md-2 mb-2">
+        <InputSelect class="form-select" TValue="int" Value="@formModel.PageSize" ValueExpression="@(() => formModel.PageSize)" ValueChanged="@PageSizeValueChangedAsync">
+            <option value="30">30</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+        </InputSelect>
+    </div>
+</div>
+
+
+@code {
+    [Parameter] public IPagedResult Result { get; set; } = default!;
+    [Parameter] public EventCallback<PaginationRequest> OnPageRequest { get; set; }
+    private FormModel formModel = new();
+
+    protected override void OnParametersSet()
+    {
+        formModel.Page = Result.Page;
+        formModel.PageSize = Result.PageSize;
+    }
+
+    private async Task PageValueChangedAsync(int value)
+    {
+        formModel.Page = value;
+        await OnPageRequest.InvokeAsync(new PaginationRequest(formModel.Page, formModel.PageSize));
+    }
+
+    private async Task PageSizeValueChangedAsync(int value)
+    {
+        formModel.PageSize = value;
+        await OnPageRequest.InvokeAsync(new PaginationRequest(formModel.Page, formModel.PageSize));
+    }
+
+    private class FormModel
+    {
+        public int Page { get; set; }
+        public int PageSize { get; set; }
+    }
+}

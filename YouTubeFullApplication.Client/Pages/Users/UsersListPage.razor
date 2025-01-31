@@ -1,0 +1,57 @@
+﻿@page "/Users"
+@inherits PageBase
+<PageTitle>Elenco Utenti</PageTitle>
+<BodyTitle Title="Elenco Utenti" />
+<ErrorMessage Message="@errorMessage" />
+@if (isLoading)
+{
+    <BsSpinner />
+}
+else
+{
+    @if (content != null)
+    {
+        <Pagination Result="@content" OnPageRequest="@PageRequestAsync" />
+        <EditForm Model="@request">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th style="width:0px;">
+                            <a href="/Users/Nuovo" class="btn btn-sm btn-primary"><i class="fa-solid fa-fw fa-plus"></i></a>
+                        </th>
+                        <th>Cognome</th>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (content.Items.Any())
+                    {
+                        @foreach (var item in content.Items)
+                        {
+                            <tr>
+                                <td class="text-nowrap">
+                                    <a href="/Users/@item.Id" class="btn btn-sm btn-secondary"><i class="fa-solid fa-fw fa-pen"></i></a>
+                                    <button type="button" class="btn btn-sm btn-warning" @onclick="() => DeleteAsync(item)">
+                                        <i class="fa-solid fa-fw fa-trash-can"></i>
+                                    </button>
+                                </td>
+                                <td>@item.Cognome</td>
+                                <td>@item.Nome</td>
+                                <td>@item.Email</td>
+                                <td>@item.Role</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5">Nessun user presente</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </EditForm>
+    }
+}

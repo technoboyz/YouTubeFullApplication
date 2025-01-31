@@ -1,0 +1,38 @@
+﻿@page "/Studenti/{id:guid}/Details"
+<PageTitle>Dettaglio Studente</PageTitle>
+<BodyTitle Title="Dettaglio Studente" />
+<ErrorMessage Message="@errorMessage" />
+@if (isLoading)
+{
+    <BsSpinner />
+}
+else
+{
+    @if (model != null)
+    {
+        <div class="row mb-2">
+            <div class="col">
+                <a href="/Studenti/@model.Id" class="btn btn-primary">Modifica</a>
+            </div>
+        </div>
+        <FormRow Label="Nome">
+            <span class="form-text">@model!.Nome</span>
+        </FormRow>
+
+        <FormRow Label="Cognome">
+            <span class="form-text">@model!.Cognome</span>
+        </FormRow>
+
+        <FormRow Label="Codice Fiscale">
+            <span class="form-text">@model!.CodiceFiscale</span>
+        </FormRow>
+
+        <FormRow Label="Data Nascita">
+            <span class="form-text">@model!.DataNascita.ToShortDateString()</span>
+        </FormRow>
+
+        <FormRow Label="Anni Frequentati">
+            <span class="form-text">@model!.Frequenze.Count()</span>
+        </FormRow>
+    }
+}

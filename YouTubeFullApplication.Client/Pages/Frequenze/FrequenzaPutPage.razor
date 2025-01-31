@@ -1,0 +1,62 @@
+﻿@page "/Frequenze/{id:guid}"
+@inherits PageBase
+<PageTitle>Modifica Frequenza</PageTitle>
+<BodyTitle Title="Modifica Frequenza" />
+<ErrorMessage Message="@errorMessage" />
+@if (isLoading)
+{
+    <BsSpinner />
+}
+else
+{
+    @if (formModel != null)
+    {
+        <EditForm EditContext="@editContext" OnValidSubmit="@OnSubmitAsync">
+            <FluentValidationValidator />
+            <ValidationSummary />
+
+            <FormRow Label="Sudente">
+                <BlazoredTypeahead TItem="StudenteDto"
+                                   TValue="StudenteDto"
+                                   Debounce="500"
+                                   MinimumLength="4"
+                                   SearchMethod="StudentiSuggestAsync"
+                                   Value="selectedStudente"
+                                   ValueChanged="StudenteChanged"
+                                   ValueExpression="(() => selectedStudente)">
+                    <SelectedTemplate Context="studente">
+                        @studente.Cognome @studente.Nome [@studente.CodiceFiscale]
+                    </SelectedTemplate>
+                    <ResultTemplate Context="studente">
+                        @studente.Cognome @studente.Nome [@studente.CodiceFiscale]
+                    </ResultTemplate>
+                </BlazoredTypeahead>
+            </FormRow>
+
+            <FormRow Label="Anno">
+                <InputNumber class="form-control" @bind-Value="formModel.AnnoScolastico" />
+            </FormRow>
+
+            <FormRow Label="Classe">
+                <InputSelect class="form-select" @bind-Value="formModel.Classe_Id">
+                    <option value="">[Seleziona Classe]</option>
+                    @foreach (var c in classi)
+                    {
+                        <option value="@c.Id">@c.Nome</option>
+                    }
+                </InputSelect>
+            </FormRow>
+
+            <FormRow Label="Esito">
+                <InputNumber class="form-control" @bind-Value="formModel.Esito" min="0" max="10" />
+            </FormRow>
+
+            <div class="row">
+                <div class="col">
+                    <a href="/Frequenze" class="btn btn-secondary me-2">Annulla</a>
+                    <FormSubmit IsBusy="@isBusy" />
+                </div>
+            </div>
+        </EditForm>
+    }
+}

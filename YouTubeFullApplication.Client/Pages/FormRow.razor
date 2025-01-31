@@ -1,0 +1,11 @@
+﻿<div class="row">
+    <label class="label-form col-md-3 mb-2">@Label</label>
+    <div class="col-md-9 mb-2">
+        @ChildContent
+    </div>
+</div>
+
+@code {
+    [Parameter, EditorRequired] public string Label { get; set; } = default!;
+    [Parameter] public RenderFragment ChildContent { get; set; } = default!;
+}

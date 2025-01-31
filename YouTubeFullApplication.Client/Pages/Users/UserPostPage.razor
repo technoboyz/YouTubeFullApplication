@@ -1,0 +1,48 @@
+﻿@page "/Users/Nuovo"
+@inherits PageBase
+<PageTitle>Nuovo User</PageTitle>
+<BodyTitle Title="Nuovo User" />
+<ErrorMessage Message="@errorMessage" />
+@if (isLoading)
+{
+    <BsSpinner />
+}
+else
+{
+    <EditForm EditContext="@editContext" OnValidSubmit="@OnSubmitAsync">
+        <FluentValidationValidator />
+        <ValidationSummary />
+
+        <FormRow Label="Nome">
+            <InputText class="form-control" @bind-Value="formModel.Nome" />
+        </FormRow>
+
+        <FormRow Label="Cognome">
+            <InputText class="form-control" @bind-Value="formModel.Cognome" />
+        </FormRow>
+
+        <FormRow Label="Email">
+            <InputText class="form-control" @bind-Value="formModel.Email" />
+        </FormRow>
+
+        <FormRow Label="Password">
+            <InputText type="password" class="form-control" @bind-Value="formModel.Password" />
+        </FormRow>
+
+        <FormRow Label="Conferma Password">
+            <InputText type="password" class="form-control" @bind-Value="formModel.ConfirmPassword" />
+        </FormRow>
+
+        <FormRow Label="Role">
+            <InputSelect class="form-select" @bind-Value="formModel.Role">
+                <option value="">[Seleziona]</option>
+                @foreach (var role in roles)
+                {
+                    <option value="@role">@role</option>
+                }
+            </InputSelect>
+        </FormRow>
+
+        <FormSubmit IsBusy="@isBusy" />
+    </EditForm>
+}

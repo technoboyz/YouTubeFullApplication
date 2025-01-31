@@ -1,0 +1,31 @@
+﻿@page "/Abbinamenti/{id:guid}/Details"
+@inherits PageBase
+<PageTitle>Dettaglio Abbinamento</PageTitle>
+<BodyTitle Title="Dettaglio Abbinamento" />
+<ErrorMessage Message="@errorMessage" />
+@if (isLoading)
+{
+    <BsSpinner />
+}
+else
+{
+    @if (model != null)
+    {
+        <div class="row mb-2">
+            <div class="col">
+                <a href="/Abbinamenti/@model.Id" class="btn btn-primary">Modifica</a>
+            </div>
+        </div>
+        <FormRow Label="Docente">
+            <span class="form-text">@model.Docente.Cognome @model.Docente.Nome<br />[@model.Docente.CodiceFiscale]</span>
+        </FormRow>
+
+        <FormRow Label="Classe">
+            <span class="form-text">@model.Classe.Nome</span>
+        </FormRow>
+
+        <FormRow Label="Materia">
+            <span class="form-text">@model.Materia.Nome</span>
+        </FormRow>
+    }
+}

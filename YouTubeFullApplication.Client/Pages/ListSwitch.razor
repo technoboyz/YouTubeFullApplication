@@ -1,0 +1,19 @@
+﻿<div class="form-check form-switch">
+    <InputCheckbox class="form-check-input" role="switch" id="flexSwitchCheckChecked" disabled="@IsBusy"
+    Value="@Value"
+    ValueExpression="() => Value"
+    ValueChanged="@ValueChangedAsync" />
+    <label class="form-check-label" for="flexSwitchCheckChecked">Mostra elementi eliminati</label>
+</div>
+
+@code {
+    [Parameter] public bool IsBusy { get; set; }
+    [Parameter] public bool Value { get; set; }
+    [Parameter] public EventCallback<bool> OnValueChanged { get; set; }
+
+    private async Task ValueChangedAsync(bool value)
+    {
+        Value = value;
+        await OnValueChanged.InvokeAsync(value);
+    }
+}

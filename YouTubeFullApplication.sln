@@ -1,0 +1,111 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35122.118
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YouTubeFullApplication.Host", "YouTubeFullApplication.Host\YouTubeFullApplication.Host.csproj", "{ED4BFE55-F2AB-4D4A-99FA-02D7A7F4A21E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{A9F059CD-668D-4F16-BE1C-1169012FE387}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YouTubeFullApplication.Domain", "YouTubeFullApplication.Domain\YouTubeFullApplication.Domain.csproj", "{7F15B719-F362-4E1F-8DE6-0D0FA914EE28}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YouTubeFullApplication.Shared", "YouTubeFullApplication.Shared\YouTubeFullApplication.Shared.csproj", "{259EB47C-7134-40B6-B802-2E48949DDA44}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YouTubeFullApplication.Json", "YouTubeFullApplication.Json\YouTubeFullApplication.Json.csproj", "{CE485D0C-9A95-415C-BE03-4DDE78FDE401}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{8E40780A-240E-4903-9DF0-B53EC1637B40}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YouTubeFullApplication.DataAccessLayer", "YouTubeFullApplication.DataAccessLayer\YouTubeFullApplication.DataAccessLayer.csproj", "{8F9C1136-EBDC-463E-A81B-31F2AA3B2123}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YouTubeFullApplication.Dto", "YouTubeFullApplication.Dto\YouTubeFullApplication.Dto.csproj", "{E3B0B652-BF2B-4654-A9B6-F5CCFD85FD8A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YouTubeFullApplication.BusinessLayer", "YouTubeFullApplication.BusinessLayer\YouTubeFullApplication.BusinessLayer.csproj", "{5237EE23-C540-424C-9A21-D14233644DC9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YouTubeFullApplication.ServiceResult", "YouTubeFullApplication.ServiceResult\YouTubeFullApplication.ServiceResult.csproj", "{A715E252-21FB-4E99-A72C-7DF949F5C43E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YouTubeFullApplication.Validation", "YouTubeFullApplication.Validation\YouTubeFullApplication.Validation.csproj", "{43D8D2A0-25FB-4C0C-B35D-36ABDCA9A9E6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YouTubeFullApplication.ServiceResult.AspNetCore", "YouTubeFullApplication.ServiceResult.AspNetCore\YouTubeFullApplication.ServiceResult.AspNetCore.csproj", "{32C20937-69DA-42C5-B2A1-D40965AE542F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YouTubeFullApplication.Mapper", "YouTubeFullApplication.Mapper\YouTubeFullApplication.Mapper.csproj", "{BE491764-448D-4DE1-8014-3EF3D26F08D4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{CA7953E7-9C37-40AD-A6CE-C2B5A72BEC7A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YouTubeFullApplication.Client", "YouTubeFullApplication.Client\YouTubeFullApplication.Client.csproj", "{AD14558E-4325-4D0C-9C2C-796AC5DAB3DF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ED4BFE55-F2AB-4D4A-99FA-02D7A7F4A21E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED4BFE55-F2AB-4D4A-99FA-02D7A7F4A21E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED4BFE55-F2AB-4D4A-99FA-02D7A7F4A21E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED4BFE55-F2AB-4D4A-99FA-02D7A7F4A21E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F15B719-F362-4E1F-8DE6-0D0FA914EE28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F15B719-F362-4E1F-8DE6-0D0FA914EE28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F15B719-F362-4E1F-8DE6-0D0FA914EE28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F15B719-F362-4E1F-8DE6-0D0FA914EE28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{259EB47C-7134-40B6-B802-2E48949DDA44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{259EB47C-7134-40B6-B802-2E48949DDA44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{259EB47C-7134-40B6-B802-2E48949DDA44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{259EB47C-7134-40B6-B802-2E48949DDA44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE485D0C-9A95-415C-BE03-4DDE78FDE401}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE485D0C-9A95-415C-BE03-4DDE78FDE401}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE485D0C-9A95-415C-BE03-4DDE78FDE401}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE485D0C-9A95-415C-BE03-4DDE78FDE401}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F9C1136-EBDC-463E-A81B-31F2AA3B2123}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F9C1136-EBDC-463E-A81B-31F2AA3B2123}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F9C1136-EBDC-463E-A81B-31F2AA3B2123}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F9C1136-EBDC-463E-A81B-31F2AA3B2123}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3B0B652-BF2B-4654-A9B6-F5CCFD85FD8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3B0B652-BF2B-4654-A9B6-F5CCFD85FD8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3B0B652-BF2B-4654-A9B6-F5CCFD85FD8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3B0B652-BF2B-4654-A9B6-F5CCFD85FD8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5237EE23-C540-424C-9A21-D14233644DC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5237EE23-C540-424C-9A21-D14233644DC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5237EE23-C540-424C-9A21-D14233644DC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5237EE23-C540-424C-9A21-D14233644DC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A715E252-21FB-4E99-A72C-7DF949F5C43E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A715E252-21FB-4E99-A72C-7DF949F5C43E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A715E252-21FB-4E99-A72C-7DF949F5C43E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A715E252-21FB-4E99-A72C-7DF949F5C43E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43D8D2A0-25FB-4C0C-B35D-36ABDCA9A9E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43D8D2A0-25FB-4C0C-B35D-36ABDCA9A9E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43D8D2A0-25FB-4C0C-B35D-36ABDCA9A9E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43D8D2A0-25FB-4C0C-B35D-36ABDCA9A9E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32C20937-69DA-42C5-B2A1-D40965AE542F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32C20937-69DA-42C5-B2A1-D40965AE542F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32C20937-69DA-42C5-B2A1-D40965AE542F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32C20937-69DA-42C5-B2A1-D40965AE542F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE491764-448D-4DE1-8014-3EF3D26F08D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE491764-448D-4DE1-8014-3EF3D26F08D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE491764-448D-4DE1-8014-3EF3D26F08D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE491764-448D-4DE1-8014-3EF3D26F08D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD14558E-4325-4D0C-9C2C-796AC5DAB3DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD14558E-4325-4D0C-9C2C-796AC5DAB3DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD14558E-4325-4D0C-9C2C-796AC5DAB3DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD14558E-4325-4D0C-9C2C-796AC5DAB3DF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{ED4BFE55-F2AB-4D4A-99FA-02D7A7F4A21E} = {A9F059CD-668D-4F16-BE1C-1169012FE387}
+		{7F15B719-F362-4E1F-8DE6-0D0FA914EE28} = {A9F059CD-668D-4F16-BE1C-1169012FE387}
+		{259EB47C-7134-40B6-B802-2E48949DDA44} = {8E40780A-240E-4903-9DF0-B53EC1637B40}
+		{CE485D0C-9A95-415C-BE03-4DDE78FDE401} = {8E40780A-240E-4903-9DF0-B53EC1637B40}
+		{8F9C1136-EBDC-463E-A81B-31F2AA3B2123} = {A9F059CD-668D-4F16-BE1C-1169012FE387}
+		{E3B0B652-BF2B-4654-A9B6-F5CCFD85FD8A} = {8E40780A-240E-4903-9DF0-B53EC1637B40}
+		{5237EE23-C540-424C-9A21-D14233644DC9} = {A9F059CD-668D-4F16-BE1C-1169012FE387}
+		{A715E252-21FB-4E99-A72C-7DF949F5C43E} = {A9F059CD-668D-4F16-BE1C-1169012FE387}
+		{43D8D2A0-25FB-4C0C-B35D-36ABDCA9A9E6} = {8E40780A-240E-4903-9DF0-B53EC1637B40}
+		{32C20937-69DA-42C5-B2A1-D40965AE542F} = {A9F059CD-668D-4F16-BE1C-1169012FE387}
+		{BE491764-448D-4DE1-8014-3EF3D26F08D4} = {A9F059CD-668D-4F16-BE1C-1169012FE387}
+		{AD14558E-4325-4D0C-9C2C-796AC5DAB3DF} = {CA7953E7-9C37-40AD-A6CE-C2B5A72BEC7A}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8C37B16B-2C16-474C-8107-A4AEFAF0F264}
+	EndGlobalSection
+EndGlobal
