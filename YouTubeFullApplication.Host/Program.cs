@@ -9,6 +9,7 @@ using YouTubeFullApplication.Validation;
 using YouTubeFullApplication.Json;
 using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Builder;
 
 namespace YouTubeFullApplication.Host
 {
@@ -33,6 +34,7 @@ namespace YouTubeFullApplication.Host
             });
             builder.Services.AddProblemDetails();
 
+            builder.Services.AddOpenApi();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
             builder.Services.AddSwaggerGen(options =>
@@ -90,8 +92,10 @@ namespace YouTubeFullApplication.Host
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
-                app.UseSwagger();
-                app.UseSwaggerUI();
+                app.MapOpenApi();
+                app.UseSwaggerUI(options => {
+                    options.SwaggerEndpoint("/openapi/v1.json", app.Environment.ApplicationName);
+                });
                 app.UseWebAssemblyDebugging(); // Per blazor
             }
 
