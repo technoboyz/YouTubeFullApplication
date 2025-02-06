@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR.Contracts" Version="2.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\YouTubeFullApplication.ServiceResult\YouTubeFullApplication.ServiceResult.csproj" />
     <ProjectReference Include="..\YouTubeFullApplication.Shared\YouTubeFullApplication.Shared.csproj" />
   </ItemGroup>
 

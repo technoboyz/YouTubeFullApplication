@@ -1,4 +1,6 @@
-﻿using YouTubeFullApplication.Shared;
+﻿using MediatR;
+using YouTubeFullApplication.ServiceResult;
+using YouTubeFullApplication.Shared;
 
 namespace YouTubeFullApplication.Dto
 {
@@ -27,7 +29,7 @@ namespace YouTubeFullApplication.Dto
         public IEnumerable<FrequenzaStudenteDto> Frequenze { get; set; } = [];
     }
 
-    public class StudentePostDto
+    public class StudentePostDto : IRequest<Result<StudenteDto>>
     {
         private string nome = string.Empty;
         public string Nome
@@ -50,7 +52,7 @@ namespace YouTubeFullApplication.Dto
         public DateOnly DataNascita { get; set; }
     }
 
-    public class StudentePutDto : Entity<Guid>
+    public class StudentePutDto : Entity<Guid>, IRequest<Result>
     {
         private string nome = string.Empty;
         public string Nome
@@ -73,7 +75,7 @@ namespace YouTubeFullApplication.Dto
         public DateOnly DataNascita { get; set; }
     }
 
-    public class StudenteRequestDto : RequestBaseDto
+    public class StudenteRequestDto : RequestBaseDto, IRequest<Result<PagedResultDto<StudenteListDto>>>
     {
         public string? CognomeNome { get; set; }
         public string? CodiceFiscale { get; set; }
@@ -81,4 +83,19 @@ namespace YouTubeFullApplication.Dto
         {
         }
     }
+    
+    public class StudenteByIdRequest
+    {
+        public Guid Id { get; set; }
+    }
+
+    public class ModelListRequest<TRequest, TList> : IRequest<Result<PagedResultDto<TList>>> {
+        public TRequest Request { get; set; } = default!;
+    }
+    public class ModelByIdRequest<Tkey, TModel> : Entity<Tkey>, IRequest<Result<TModel>> { }
+    public class ModelDetailsByIdRequest<Tkey, TModel> : Entity<Tkey>, IRequest<Result<TModel>> { }
+    public class ModelDeleteByIdRequest<Tkey, TModel> : Entity<Tkey>, IRequest<Result<TModel>> { }
+    public class ModelUndeleteByIdRequest<Tkey, TModel> : Entity<Tkey>, IRequest<Result> { }
+    public record SuggestRequest<TModel>(string Text) : IRequest<Result<IEnumerable<TModel>>>;
+    public class ItemsRequest<TModel> : IRequest<Result<IEnumerable<TModel>>> { }
 }

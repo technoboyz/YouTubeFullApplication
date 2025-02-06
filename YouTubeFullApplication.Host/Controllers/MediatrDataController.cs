@@ -1,40 +1,37 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using YouTubeFullApplication.BusinessLayer.Services;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using YouTubeFullApplication.Dto;
 using YouTubeFullApplication.ServiceResult;
 using YouTubeFullApplication.Shared;
 
 namespace YouTubeFullApplication.Host.Controllers
 {
-    public abstract class DataController<TKey, TModel, TList, TDetails, TPost, TPut, TRequest> :
-        ControllerBase
+    public class MediatrDataReadController<TKey, TModel, TList, TDetails, TRequest> : ControllerBase
         where TKey : struct
         where TModel : IEntity<TKey>
-        where TDetails : IEntity<TKey>
-        where TPut : IEntity<TKey>
         where TRequest : RequestBaseDto
     {
-        protected readonly IDataService<TKey, TModel, TList, TDetails, TPost, TPut, TRequest> service;
+        protected readonly ISender sender;
 
-        public DataController(IDataService<TKey, TModel, TList, TDetails, TPost, TPut, TRequest> service)
+        public MediatrDataReadController(ISender sender)
         {
-            this.service = service;
+            this.sender = sender;
         }
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAll([FromQuery] TRequest request)
         {
-            var result = await service.GetAllAsync(request);
+            var result = await sender.Send(new ModelListRequest<TRequest, TList> { Request = request });
             return Ok(result.Content);
         }
 
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Get(TKey id)
+        public async Task<IActionResult> GetById(TKey id)
         {
-            var result = await service.GetByIdAsync(id);
+            var result = await sender.Send(new ModelByIdRequest<TKey, TModel> { Id = id });
             if (result.Success) return Ok(result.Content);
             return CreateNotFound(ModelState, result);
         }
@@ -44,9 +41,23 @@ namespace YouTubeFullApplication.Host.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetDetails(TKey id)
         {
-            var result = await service.GetDetailsByIdAsync(id);
+            var result = await sender.Send(new ModelDetailsByIdRequest<TKey, TDetails> { Id = id });
             if (result.Success) return Ok(result.Content);
             return CreateNotFound(ModelState, result);
+        }
+    }
+
+    public class MediatrDataWriteController<TKey, TModel, TPost, TPut> : ControllerBase
+        where TKey : struct
+        where TModel : IEntity<TKey>
+        where TPost : class
+        where TPut : IEntity<TKey>
+    {
+        protected readonly ISender sender;
+
+        public MediatrDataWriteController(ISender sender)
+        {
+            this.sender = sender;
         }
 
         [HttpPost]
@@ -55,7 +66,7 @@ namespace YouTubeFullApplication.Host.Controllers
         [ProducesResponseType(StatusCodes.Status406NotAcceptable)]
         public async Task<IActionResult> Post([FromBody] TPost model)
         {
-            var result = await service.PostAsync(model)!;
+            var result = (Result<TModel>)(await sender.Send(model))!;
             if (result.Success)
             {
                 string url = $"{BaseUrl}{HttpContext.Request.Path}/{result.Content.Id}";
@@ -77,7 +88,7 @@ namespace YouTubeFullApplication.Host.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Put([FromBody] TPut model)
         {
-            var result = await service.PutAsync(model)!;
+            var result = (Result)(await sender.Send(model))!;
             if (result.Success) return NoContent();
             return CreateBadRequest(ModelState, result);
         }
@@ -88,7 +99,7 @@ namespace YouTubeFullApplication.Host.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Delete([FromQuery] TKey id)
         {
-            var result = await service.DeleteByIdAsync(id);
+            var result = (Result<TModel>)(await sender.Send(new ModelDeleteByIdRequest<TKey, TModel> { Id = id }))!;
             if (result.Success) return Ok(result.Content);
             if (result.FailureReason == FailureReasons.NotFound)
             {
@@ -101,15 +112,14 @@ namespace YouTubeFullApplication.Host.Controllers
         }
     }
 
-    public abstract class ArchiveableDataController<TKey, TModel, TList, TDetails, TPost, TPut, TRequest> :
-        DataController<TKey, TModel, TList, TDetails, TPost, TPut, TRequest>
+    public class MediatrArchiveableDataWriteController<TKey, TModel, TPost, TPut> :
+        MediatrDataWriteController<TKey, TModel, TPost, TPut>
         where TKey : struct
         where TModel : IEntity<TKey>
-        where TDetails : IEntity<TKey>
+        where TPost : class
         where TPut : IEntity<TKey>
-        where TRequest : RequestBaseDto
     {
-        protected ArchiveableDataController(IArchiveableDataService<TKey, TModel, TList, TDetails, TPost, TPut, TRequest> service) : base(service)
+        public MediatrArchiveableDataWriteController(ISender sender) : base(sender)
         {
         }
 
@@ -118,25 +128,9 @@ namespace YouTubeFullApplication.Host.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Undelete([FromQuery] TKey id)
         {
-            var result = await (service as IArchiveableDataService<TKey, TModel, TList, TDetails, TPost, TPut, TRequest>)!.UndeleteByIdAsync(id);
+            var result = await sender.Send(new ModelUndeleteByIdRequest<TKey, TModel> { Id = id });
             if (result.Success) return NoContent();
             return CreateNotFound(ModelState, result);
         }
-    }
-
-    [Tags("Test")]
-    [Route("api/Test")]
-    public class TestReadController : ControllerBase
-    {
-        [HttpGet]
-        public IActionResult Read() { return Ok(); }
-    }
-
-    [Tags("Test")]
-    [Route("api/Test")]
-    public class TestWriteController : ControllerBase
-    {
-        [HttpPost]
-        public IActionResult Write() { return Ok(); }
     }
 }

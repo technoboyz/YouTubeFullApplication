@@ -34,9 +34,12 @@ namespace YouTubeFullApplication.Host
             });
             builder.Services.AddProblemDetails();
 
-            builder.Services.AddOpenApi();
+            // Sistema per la generazione documentazione JSON di Microsoft
+            // builder.Services.AddOpenApi();
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
+            // Sistema per la generazione documentazione JSON di Swagger
             builder.Services.AddSwaggerGen(options =>
             {
                 options.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme
@@ -92,10 +95,15 @@ namespace YouTubeFullApplication.Host
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
-                app.MapOpenApi();
-                app.UseSwaggerUI(options => {
-                    options.SwaggerEndpoint("/openapi/v1.json", app.Environment.ApplicationName);
-                });
+                // Usiamo documentazione Microsoft
+                // app.MapOpenApi();
+                //app.UseSwaggerUI(options => {
+                //    options.SwaggerEndpoint("/openapi/v1.json", app.Environment.ApplicationName);
+                //});
+
+                // Usiamo documentazione Swagger
+                app.UseSwagger();
+                app.UseSwaggerUI();
                 app.UseWebAssemblyDebugging(); // Per blazor
             }
 

@@ -19,6 +19,7 @@ namespace YouTubeFullApplication.Client.Services
 
         public async Task<Result<IEnumerable<MateriaDto>>> GetItemsAsync(CancellationToken token = default)
         {
+            token.ThrowIfCancellationRequested();
             try
             {
                 using var response = await http.GetAsync($"{pathBase}/Items", token);

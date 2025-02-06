@@ -19,7 +19,8 @@ namespace YouTubeFullApplication.BusinessLayer
 
             services.AddDataAccessLayer(configuration);
             services.AddMapper();
-            services.AddScoped<IStudentiService, StudentiService>();
+            services.AddScoped<IStudentiReadService, StudentiReadService>();
+            services.AddScoped<IStudentiWriteService, StudentiWriteService>();
             services.AddScoped<IDocentiService, DocentiService>();
             services.AddScoped<IClassiService, ClassiService>();
             services.AddScoped<IMaterieService, MaterieService>();
@@ -27,6 +28,11 @@ namespace YouTubeFullApplication.BusinessLayer
             services.AddScoped<IFrequenzeService, FrequenzeService>();
             services.AddScoped<IUsersService, UsersService>();
             services.AddScoped<IInstallService, InstallService>();
+
+            services.AddMediatR(config =>
+            {
+                config.RegisterServicesFromAssembly(typeof(ServiceCollectionExtension).Assembly);
+            });
 
             return jwtSettings;
         }
